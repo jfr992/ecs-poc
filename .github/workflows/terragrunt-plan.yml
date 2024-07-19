@@ -1,11 +1,12 @@
 name: 'Terragrunt plan'
 on:
-  - pull_request
-
+  pull_request:
+    paths:
+      - 'infrastructure/**'
 env:
   tf_version: '1.9.2'
   tg_version: '0.48.1'
-  working_dir: '.'
+  working_dir: 'infrastructure'
 
 jobs:
   checks:
