@@ -4,16 +4,15 @@ locals {
 
 resource "aws_lambda_function" "app_lambda" {
   function_name    = "app"
-  role             = aws_iam_role.api_lambda_role.arn
+  role             = aws_iam_role.app_lambda_role.arn
   s3_bucket        = aws_s3_bucket.app_bucket.id
-  s3_key           = aws_s3_bucket_object.api_code_archive.key
+  s3_key           = aws_s3_bucket_object.app_object.key
   source_code_hash = data.archive_file.lambda.output_base64sha256
 
-  architectures = ["arm64"]
-  runtime       = "provided.al2"
-  handler       = "bootstrap"
-  memory_size   = 128
-  publish       = true
+  runtime     = "python3.9"
+  handler     = "handler.lambda_handler"
+  memory_size = 128
+  publish     = true
 
   lifecycle {
     ignore_changes = [
@@ -26,29 +25,19 @@ resource "aws_lambda_function" "app_lambda" {
 
   vpc_config {
     subnet_ids         = local.subnet_ids
+    security_group_ids = [var.service_sg]
   }
-}
 
-resource "aws_lambda_alias" "app_lambda_alias" {
-  name             = "production"
-  function_name    = aws_lambda_function.app_lambda.arn
-  function_version = "$LATEST"
-
-  lifecycle {
-    ignore_changes = [
-      function_version
-    ]
-  }
 }
 
 resource "aws_cloudwatch_log_group" "api_lambda_log_group" {
-  name              = "/aws/lambda/${aws_lambda_function.api_lambda.function_name}"
+  name              = "/aws/lambda/${aws_lambda_function.app_lambda.function_name}"
   retention_in_days = 14
   tags              = {}
 }
 
-resource "aws_iam_role" "api_lambda_role" {
-  name = "example-lambda-role"
+resource "aws_iam_role" "app_lambda_role" {
+  name = "lambda-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -62,10 +51,9 @@ resource "aws_iam_role" "api_lambda_role" {
     }]
   })
 }
-
 resource "aws_iam_role_policy" "lambda_policy" {
   name = "lambda-role-policy"
-  role = aws_iam_role.api_lambda_role.id
+  role = aws_iam_role.app_lambda_role.id
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -78,7 +66,24 @@ resource "aws_iam_role_policy" "lambda_policy" {
           "logs:PutLogEvents"
         ],
         Resource = "*"
+      },
+      {
+        Effect = "Allow",
+        Action = [
+          "s3:PutObject"
+        ],
+        Resource = "arn:aws:s3:::${aws_s3_bucket.app_bucket.bucket}/*"
+      },
+      {
+        Effect = "Allow",
+        Action = [
+          "ec2:CreateNetworkInterface",
+          "ec2:DescribeNetworkInterfaces",
+          "ec2:DeleteNetworkInterface"
+        ],
+        Resource = "*"
       }
     ]
   })
 }
+

@@ -3,7 +3,7 @@ import boto3
 from datetime import datetime
 
 s3 = boto3.client('s3')
-bucket_name = 'your-bucket-name'
+bucket_name = 'reorg-lambda-bucket-assignment'
 
 
 def lambda_handler(event, context):
