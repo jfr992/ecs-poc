@@ -1,12 +1,14 @@
-name: 'Terragrunt plan'
+name: 'Terragrunt apply lambda'
 on:
-  pull_request:
+  push:
+    branches:
+      - main
     paths:
-      - 'infrastructure/**'
+      - 'aws-lambda/**'
 env:
   tf_version: '1.9.2'
   tg_version: '0.48.1'
-  working_dir: 'infrastructure'
+  working_dir: 'aws-lambda'
 
 jobs:
   checks:
@@ -23,20 +25,20 @@ jobs:
           tg_dir: ${{ env.working_dir }}
           tg_command: 'hclfmt --terragrunt-check --terragrunt-diff'
 
-  plan:
+  apply:
     runs-on: ubuntu-latest
     needs: [ checks ]
     steps:
       - name: 'Checkout'
         uses: actions/checkout@main
 
-      - name: Plan
+      - name: Apply
         uses: gruntwork-io/terragrunt-action@v2
         with:
           tf_version: ${{ env.tf_version }}
           tg_version: ${{ env.tg_version }}
           tg_dir: ${{ env.working_dir }}
-          tg_command: 'run-all plan'
+          tg_command: 'run-all apply'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
