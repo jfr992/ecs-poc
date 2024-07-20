@@ -1,0 +1,24 @@
+[
+    {
+      "name": "app",
+      "image": "placeholder",
+      "cpu": 1024,
+      "memory": 2048,
+      "networkMode": "awsvpc",
+      "logConfiguration": {
+          "logDriver": "awslogs",
+          "options": {
+            "awslogs-group": "/ecs/app",
+            "awslogs-region": "us-east-1",
+            "awslogs-stream-prefix": "ecs"
+          }
+      },
+      "portMappings": [
+        {
+          "containerPort": 8000,
+          "hostPort": 8000
+        }
+      ]
+    }
+  ]
+  
