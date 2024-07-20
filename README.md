@@ -24,12 +24,12 @@ Terragrunt is utilized to keep the Infrastructure as Code (IaC) more DRY (Don't 
 
 The following diagram shows the solution architecture
 
-![diagram](reorg.drawio.png.png)
+![diagram](reorg.drawio.png)
 
 
 ## CI/CD
 
-![diagram](reorg.drawio.png.png)
+![diagram](reorg.drawio.png)
 
 ### Secrets and env vars needed
 
