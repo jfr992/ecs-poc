@@ -9,22 +9,10 @@ variable "az_count" {
   default     = "2"
 }
 
-
-variable "app_port" {
-  description = "Port exposed by the docker image to redirect traffic to"
-  default     = 3000
-
-}
-
 variable "health_check_path" {
   default = "/"
 }
 
-variable "fargate_cpu" {
-  description = "Fargate instance CPU units to provision (1 vCPU = 1024 CPU units)"
-  default     = "1024"
-}
-
-variable "fargate_memory" {
-  description = "Fargate instance memory to provision (in MiB)"
+variable "app_port" {
+  default = "8000"
 }
