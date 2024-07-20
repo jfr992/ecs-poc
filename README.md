@@ -29,7 +29,7 @@ The following diagram shows the solution architecture
 
 ## CI/CD
 
-![diagram](reorg.drawio.png)
+![diagram](CICD.png)
 
 ### Secrets and env vars needed
 
