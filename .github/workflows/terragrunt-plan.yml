@@ -3,7 +3,7 @@ on:
   pull_request:
     paths:
       - 'infrastructure/network'
-      - 'infrastructure/lambda'
+      - 'infrastructure/api'
 env:
   tf_version: '1.9.2'
   tg_version: '0.48.1'
