@@ -1,15 +1,14 @@
 name: Push the api Docker image to AWS ECR Repo
 on:
-  # push:
-  #   branches:
-  #     - main
-  pull_request:
+  push:
+    branches:
+      - main
     paths:
       - 'api/**'
 
 jobs:
   Build:
-    name: Build
+    name: Build and Deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

@@ -4,11 +4,12 @@ on:
     branches:
       - main
     paths:
-      - 'infrastructure/**'
+      - 'infrastructure/lambda'
+      - aws-lambda
 env:
   tf_version: '1.9.2'
   tg_version: '0.48.1'
-  working_dir: 'infrastructure'
+  working_dir: 'infrastructure/lambda'
 
 jobs:
   checks:
