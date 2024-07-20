@@ -1,4 +1,4 @@
-name: 'Terragrunt plan'
+name: 'Terragrunt plan lambda'
 on:
   pull_request:
     paths:
