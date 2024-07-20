@@ -22,4 +22,10 @@ Terragrunt is utilized to keep the Infrastructure as Code (IaC) more DRY (Don't 
 
 ## AWS Architecture
 
-![Description](./reorg.drawio.png.png)
+The following diagram shows the solution architecture
+
+![Description](reorg.drawio.png.png)
+
+
+## CI/CD
+
