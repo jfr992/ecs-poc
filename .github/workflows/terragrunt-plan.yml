@@ -2,7 +2,8 @@ name: 'Terragrunt plan'
 on:
   pull_request:
     paths:
-      - 'infrastructure/**'
+      - 'infrastructure/network'
+      - 'infrastructure/lambda'
 env:
   tf_version: '1.9.2'
   tg_version: '0.48.1'
