@@ -24,8 +24,17 @@ Terragrunt is utilized to keep the Infrastructure as Code (IaC) more DRY (Don't 
 
 The following diagram shows the solution architecture
 
-![Description](reorg.drawio.png.png)
+![AWS Archiecture](reorg.drawio.png.png)
 
 
 ## CI/CD
 
+![Simple CICD Diagram](reorg.drawio.png.png)
+
+### Secrets and env vars needed
+
+The following variables need to be setup in the githubactions settings.
+
+**Secrets:** AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
+
+**Envs:** ECS_CLUSTER, ECS_SERVICE, ECS_TASK_DEFINITION
