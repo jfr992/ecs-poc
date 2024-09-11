@@ -1,5 +1,3 @@
-# reorg-assignment
-
 # CI/CD Pipeline for FastAPI and AWS Lambda Applications
 
 ## Overview
